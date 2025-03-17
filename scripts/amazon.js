@@ -2,6 +2,9 @@ import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
+
+updateCartQuantity();
+
 let productsHTML = "";
 
 products.forEach((product) => {
@@ -29,7 +32,8 @@ products.forEach((product) => {
       </div>
 
       <div class="product-quantity-container">
-        <select>
+        <select class="js-selected-quantity js-quantity-selector-${product.id}">
+
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -45,7 +49,7 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart">
+      <div class="added-to-cart added-to-cart-${product.id} ">
         <img src="images/icons/checkmark.png">
         Added
       </div>
@@ -77,10 +81,30 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const productId = button.dataset.productId;
 
+
+
     //function for adding all elements to cart
     addToCart(productId);
 
     // function for updating cart quantity
     updateCartQuantity();
+
+
+
+
+
+        // Show the added-to-cart message
+        const addedMessage = document.querySelector(`.added-to-cart-${productId}`);
+        addedMessage.style.opacity = 1;
+    
+        // Clear any existing timeout
+        clearTimeout(addedMessage.timeoutId);
+    
+        // Set a new timeout to hide the message after 2 seconds
+        addedMessage.timeoutId = setTimeout(() => {
+          addedMessage.style.opacity = 0;
+        }, 2000);
+
+
   });
 });
