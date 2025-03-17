@@ -1,10 +1,8 @@
-import { cart,removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
 updateCheckoutQuantity();
-
-
 
 let cartSummaryHTML = ``;
 
@@ -39,10 +37,7 @@ cart.forEach((cartItem) => {
               Quantity: <span class="quantity-label">${cartItem.quantity}</span>
             </span>
             <span class="update-quantity-link link-primary">Update</span>
-            
             <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">Delete</span>
-
-
           </div>
         </div>
 
@@ -79,34 +74,35 @@ cart.forEach((cartItem) => {
 
 document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
 
+document.querySelectorAll('.js-delete-link').forEach((link) => {
+  link.addEventListener('click', () => {
+    const productId = link.dataset.productId;
+    removeFromCart(productId);
 
-document.querySelectorAll('.js-delete-link').forEach((link)=>{
+    const container = document.querySelector(`.js-cart-item-container-${productId}`);
+    container.remove();
 
-link.addEventListener('click', ()=>{
-
-    // console.log("delete");
-
-    const productId=link.dataset.productId;
-removeFromCart(productId);
-// console.log(cart);
-
-
-const container=document.querySelector(`.js-cart-item-container-${productId}`);
-
-container.remove();
-// console.log(container);
-
-});
-
-});
-
-
-function updateCheckoutQuantity()
-{
-  let totalquantity=0;
-
-  cart.forEach((cartItem)=>{
-    totalquantity+=cartItem.quantity;
+    updateCartQuantity();
   });
-  document.querySelector('.return-to-home-link').innerHTML=totalquantity+" items";
+});
+
+// Updating checkout quantity
+function updateCheckoutQuantity() {
+  let totalQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    totalQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.return-to-home-link').innerHTML = totalQuantity + " items";
+}
+
+function updateCartQuantity() {
+  let totalQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    totalQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.return-to-home-link').innerHTML = totalQuantity + " items";
 }
