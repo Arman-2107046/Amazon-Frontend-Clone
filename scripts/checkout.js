@@ -2,7 +2,7 @@ import { cart,removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
-
+updateCheckoutQuantity();
 
 
 
@@ -99,3 +99,14 @@ container.remove();
 });
 
 });
+
+
+function updateCheckoutQuantity()
+{
+  let totalquantity=0;
+
+  cart.forEach((cartItem)=>{
+    totalquantity+=cartItem.quantity;
+  });
+  document.querySelector('.return-to-home-link').innerHTML=totalquantity+" items";
+}
