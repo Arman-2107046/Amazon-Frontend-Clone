@@ -1,4 +1,4 @@
-import { cart, removeFromCart, calculateCartQuantity } from "../data/cart.js";
+import { cart, removeFromCart, calculateCartQuantity,updateQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
@@ -36,7 +36,7 @@ cart.forEach((cartItem) => {
           </div>
           <div class="product-quantity">
             <span>
-              Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+              Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
             </span>
 
 
@@ -140,6 +140,13 @@ document.querySelectorAll('.js-save-link').forEach((link)=>{
       const quantityInput=document.querySelector(`.js-quantity-input-${productId}`);
 
       const newQuantity=Number(quantityInput.value);
+
+      document.querySelector(`.js-quantity-label-${productId}`).innerHTML=newQuantity;
+
+      updateQuantity(productId,newQuantity);
+      updateCheckoutQuantity();
+      
+
 
 
   });
