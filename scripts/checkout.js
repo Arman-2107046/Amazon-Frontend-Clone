@@ -89,6 +89,7 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
 // Updating checkout quantity
 function updateCheckoutQuantity() {
   let totalQuantity = calculateCartQuantity();
+  // let totalQuantity = 0;
 
   // cart.forEach((cartItem) => {
   //   totalQuantity += cartItem.quantity;
@@ -99,6 +100,7 @@ function updateCheckoutQuantity() {
 
 function updateCartQuantity() {
   let totalQuantity = calculateCartQuantity();
+  // let totalQuantity = 0;
 
   // cart.forEach((cartItem) => {
   //   totalQuantity += cartItem.quantity;
