@@ -4,6 +4,15 @@ import { formatCurrency } from "./utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions } from "../data/deliveryOptions.js";
 
+
+function renderOrderSummary()
+{
+//
+//
+//
+//
+//
+
 updateCheckoutQuantity();
 
 let cartSummaryHTML = ``;
@@ -187,6 +196,15 @@ document.querySelectorAll('.js-delivery-option').forEach((element) => {
 
   element.addEventListener('click', () => {
     updateDeliveryOption(productId, deliveryOptionId);
-    location.reload();
+    // location.reload();
+    renderOrderSummary();
   });
 });
+//
+//
+//
+//
+//
+}
+
+renderOrderSummary();
