@@ -103,3 +103,33 @@ export function updateQuantity(productId, newQuantity) {
 
 
 
+export function updateDeliveryOption(productId, deliveryOptionId)
+{
+  let matchingItem;
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+      } 
+      });
+      matchingItem.deliveryOptionId = deliveryOptionId;
+      saveToStorage(); 
+}
+
+
+// export function updateDeliveryOption(productId, deliveryOptionId) {
+//   let matchingItem;
+  
+//   cart.forEach((cartItem) => {
+//     if (productId === cartItem.productId) {
+//       matchingItem = cartItem;
+//     }
+//   });
+  
+//   // Make sure we found a matching item before updating it
+//   if (matchingItem) {
+//     matchingItem.deliveryOptionId = deliveryOptionId;
+//     saveToStorage();
+//   } else {
+//     console.error(`No cart item found with product ID: ${productId}`);
+//   }
+// }
