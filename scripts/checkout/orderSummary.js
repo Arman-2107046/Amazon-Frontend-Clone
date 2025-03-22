@@ -5,6 +5,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 export function renderOrderSummary()
 {
@@ -14,7 +15,7 @@ export function renderOrderSummary()
 //
 //
 
-updateCheckoutQuantity();
+// updateCheckoutQuantity();
 
 let cartSummaryHTML = ``;
 
@@ -138,7 +139,7 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
     container.remove();
 
     renderPaymentSummary();
-    renderPaymentSummary();
+    // renderCheckoutHeader();
 
     // updateCartQuantity();
   });
@@ -153,7 +154,9 @@ document.querySelectorAll(".js-update-link").forEach((link) => {
     const inputField = document.querySelector(`.js-quantity-input-${productId}`);
     inputField.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
-        updateQuantityUsingSaveOrKeydown(productId, inputField);
+        // updateQuantityUsingSaveOrKeydown(productId, inputField);
+        updatePage(productId,inputField);
+        renderCheckoutHeader();
         renderPaymentSummary();
       }
     });
@@ -164,22 +167,45 @@ document.querySelectorAll('.js-save-link').forEach((link) => {
   link.addEventListener('click', () => {
     const productId = link.dataset.productId;
     const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
-    updateQuantityUsingSaveOrKeydown(productId, quantityInput);
+    // updateQuantityUsingSaveOrKeydown(productId, quantityInput);
+    updatePage(productId,quantityInput);
+
+    renderCheckoutHeader();
     renderPaymentSummary();
   });
 });
 
-function updateCheckoutQuantity() {
-  const totalQuantity = calculateCartQuantity();
-  document.querySelector(".return-to-home-link").innerHTML = `${totalQuantity} items`;
-}
+// function updateCheckoutQuantity() {
+//   const totalQuantity = calculateCartQuantity();
+//   document.querySelector(".return-to-home-link").innerHTML = `${totalQuantity} items`;
+// }
 
-function updateCartQuantity() {
-  const totalQuantity = calculateCartQuantity();
-  document.querySelector(".return-to-home-link").innerHTML = `${totalQuantity} items`;
-}
+// function updateCartQuantity() {
+//   const totalQuantity = calculateCartQuantity();
+//   document.querySelector(".return-to-home-link").innerHTML = `${totalQuantity} items`;
+// }
 
-function updateQuantityUsingSaveOrKeydown(productId, inputField) {
+// function updateQuantityUsingSaveOrKeydown(productId, inputField) {
+//   const newQuantity = parseInt(inputField.value, 10);
+
+//   if (isNaN(newQuantity) || newQuantity < 0 || newQuantity >= 1000) {
+//     alert("Quantity must be at least 0 and less than 1000");
+//     return;
+//   }
+
+//   updateQuantity(productId, newQuantity);
+
+//   const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
+//   quantityLabel.innerHTML = newQuantity;
+
+//   const container = document.querySelector(`.js-cart-item-container-${productId}`);
+//   container.classList.remove("is-editing-quantity");
+
+//   updateCheckoutQuantity();
+// }
+
+function updatePage(productId,inputField)
+{
   const newQuantity = parseInt(inputField.value, 10);
 
   if (isNaN(newQuantity) || newQuantity < 0 || newQuantity >= 1000) {
@@ -189,13 +215,13 @@ function updateQuantityUsingSaveOrKeydown(productId, inputField) {
 
   updateQuantity(productId, newQuantity);
 
-  const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
-  quantityLabel.innerHTML = newQuantity;
+  // const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
+  // quantityLabel.innerHTML = newQuantity;
 
   const container = document.querySelector(`.js-cart-item-container-${productId}`);
   container.classList.remove("is-editing-quantity");
 
-  updateCheckoutQuantity();
+  // updateCheckoutQuantity();
 }
 
 document.querySelectorAll('.js-delivery-option').forEach((element) => {
