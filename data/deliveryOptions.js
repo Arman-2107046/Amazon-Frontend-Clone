@@ -1,4 +1,5 @@
-// import { cart } from "./cart.js";
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+
 
 export const deliveryOptions=[
     {
@@ -30,4 +31,23 @@ export function getDeliveryOption(deliveryOptionId)
 
     return deliveryOption || deliveryOptions[0];
   
+}
+
+export function getDeliveryDate(deliveryOption)
+{
+      const today = dayjs();
+      let deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+
+      if(deliveryDate.format('dddd')==='Saturday' )
+      {
+        deliveryDate=deliveryDate.add(2,'days');
+      }
+      else if(deliveryDate.format('dddd')==='Sunday')
+      {
+        deliveryDate= deliveryDate.add(1,'days');
+      }
+      
+      const dateString = deliveryDate.format('dddd, MMMM D');
+
+      return dateString;
 }
