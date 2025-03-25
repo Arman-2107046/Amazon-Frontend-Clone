@@ -1,20 +1,20 @@
 class Cart {
     // Properties to store cart items and the local storage key
     cartItems;
-    localStorageKey;
+    #localStorageKey;
   
     // Constructor to initialize the cart with a local storage key
     constructor(localStorageKey) {
-      this.localStorageKey = localStorageKey;
+      this.#localStorageKey = localStorageKey;
   
       // Load cart items from local storage when a new Cart instance is created
-      this.loadFromStorage();
+      this.#loadFromStorage();
     }
   
     // Method to load cart items from local storage
-    loadFromStorage() {
+    #loadFromStorage() {
       // Parse the cart items from local storage using the provided key
-      this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+      this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
   
       // If no cart items are found, initialize with default items
       if (!this.cartItems) {
@@ -35,7 +35,7 @@ class Cart {
   
     // Method to save cart items to local storage
     saveToStorage() {
-      localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+      localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
   
     // Method to add a product to the cart
@@ -109,3 +109,5 @@ class Cart {
   // Create a new Cart instance for business use
   const businessCart = new Cart('cart-business');
   
+  console.log(cart);
+  console.log(businessCart);
